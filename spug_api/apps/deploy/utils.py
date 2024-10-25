@@ -317,6 +317,8 @@ def _deploy_ext2_host(helper, h_id, actions, env, spug_version):
                     command = f'mkdir -p /tmp/{spug_version} && tar xf /tmp/{tar_gz_file} -C /tmp/{spug_version}/ '
                     command += f'&& rm -rf {action["dst"]} && mv /tmp/{spug_version}/{sd_dst} {action["dst"]} '
                     command += f'&& rm -rf /tmp/{spug_version}* && echo "transfer completed"'
+            elif action.get('interpreter', 'shell') == 'python':
+                command = f"cd /tmp && python3 <<EOF\n{action['data']}\nEOF"
             else:
                 command = f'cd /tmp && {action["data"]}'
             helper.remote(host.id, ssh, command)

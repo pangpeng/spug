@@ -129,6 +129,12 @@ class Ext2Setup2 extends React.Component {
               <Input disabled={store.isReadOnly} value={item['title']} onChange={e => item['title'] = e.target.value}
                      placeholder="请输入"/>
             </Form.Item>
+            <Form.Item required label='解释器'>
+              <Select value={item['interpreter']} placeholder={'请选择'} onChange={value => item['interpreter'] = value}>
+                <Select.Option key={'shell'} value={'shell'}>shell</Select.Option>
+                <Select.Option key={'python'} value={'python'}>python</Select.Option>
+              </Select>
+            </Form.Item>
             {item['type'] === 'transfer' ? ([
               <Form.Item key={0} required label="数据来源">
                 <Input
